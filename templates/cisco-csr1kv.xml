@@ -1,0 +1,53 @@
+<domain type='kvm'>
+  <name>cisco-csr1kv</name>
+  <memory unit='KiB'>4194304</memory>
+  <vcpu placement='static'>1</vcpu>
+  <os>
+    <type arch='x86_64'>hvm</type>
+    <boot dev='hd'/>
+  </os>
+  <features>
+    <acpi/>
+  </features>
+  <cpu mode='host-model' check='partial'/>
+  <clock offset='utc'>
+    <timer name='rtc' tickpolicy='catchup'/>
+    <timer name='pit' tickpolicy='delay'/>
+    <timer name='hpet' present='no'/>
+  </clock>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>destroy</on_crash>
+  <pm>
+    <suspend-to-mem enabled='no'/>
+    <suspend-to-disk enabled='no'/>
+  </pm>
+  <devices>
+    <emulator>/usr/bin/qemu-system-x86_64</emulator>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2'/>
+      <source file='/var/lib/libvirt/images/cisco-csr1kv.qcow2'/>
+      <target dev='vda' bus='virtio'/>
+    </disk>
+    <controller type='pci' index='0' model='pci-root'/>
+    <interface type='network'>
+      <source network='vagrant-libvirt'/>
+      <model type='virtio'/>
+    </interface>
+    <serial type='tcp'>
+      <source mode='bind' host='127.0.0.1' service='52099'/>
+      <protocol type='telnet'/>
+      <target type='isa-serial' port='0'>
+        <model name='isa-serial'/>
+      </target>
+    </serial>
+    <console type='tcp'>
+      <source mode='bind' host='127.0.0.1' service='52099'/>
+      <protocol type='telnet'/>
+      <target type='serial' port='0'/>
+    </console>
+    <input type='mouse' bus='ps2'/>
+    <input type='keyboard' bus='ps2'/>
+  </devices>
+</domain>
+

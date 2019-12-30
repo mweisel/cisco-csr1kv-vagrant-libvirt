@@ -28,7 +28,7 @@ git clone https://github.com/mweisel/cisco-csr1kv-vagrant-libvirt
 cd cisco-csr1kv-vagrant-libvirt
 ```
 
-2. Log in and download the Cisco Cloud Services Router 1000V software from your [Cisco](https://software.cisco.com/download/home/284364978/type) account.
+2. Log in and download the Cisco Cloud Services Router 1000V (csr1000v-\*-serial.qcow2) software from your [Cisco](https://software.cisco.com/download/home/284364978/type) account.
 
 3. Copy (and rename) the disk image file to the `/var/lib/libvirt/images` directory.
 

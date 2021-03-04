@@ -1,6 +1,8 @@
-# Cisco CSR 1000V Vagrant box (libvirt)
+<img alt="Vagrant" src="https://img.shields.io/badge/vagrant%20-%231563FF.svg?&style=for-the-badge&logo=vagrant&logoColor=white"/>
 
-A procedure for creating a Cisco CSR 1000V Vagrant box for the [libvirt](https://libvirt.org) provider.
+# Cisco CSR 1000V Vagrant box
+
+A procedure for creating a Cisco CSR 1000V (Cisco IOS XE Denali 16.3.1 or later) Vagrant box for the [libvirt](https://libvirt.org) provider.
 
 ## Prerequisites
 
@@ -21,15 +23,15 @@ A procedure for creating a Cisco CSR 1000V Vagrant box for the [libvirt](https:/
 <pre>
 $ <b>which git python ansible libvirtd virsh qemu-system-x86_64 expect telnet vagrant</b>
 $ <b>vagrant plugin list</b>
-vagrant-libvirt (0.2.1, global)
+vagrant-libvirt (0.3.0, global)
 </pre>
 
-1\. Log in and download the Cisco Cloud Services Router 1000V (csr1000v-\*-serial.qcow2) software from your [Cisco](https://software.cisco.com/download/home/284364978/type) account. Save the file to your `Downloads` directory.
+1\. Log in and download the Cisco Cloud Services Router 1000V software from your [Cisco](https://software.cisco.com/download/home/284364978/type) account. Save the file to your `Downloads` directory.
 
 2\. Copy (and rename) the disk image file to the `/var/lib/libvirt/images` directory.
 
 <pre>
-$ <b>sudo cp $HOME/Downloads/csr1000v-universalk9.17.03.01a-serial.qcow2 /var/lib/libvirt/images/cisco-csr1kv.qcow2</b>
+$ <b>sudo cp $HOME/Downloads/csr1000v-universalk9.17.03.02-serial.qcow2 /var/lib/libvirt/images/cisco-csr1kv.qcow2</b>
 </pre>
 
 3\. Modify the file ownership and permissions. Note the owner may differ between Linux distributions.
@@ -51,7 +53,7 @@ $ <b>sudo chmod u+x /var/lib/libvirt/images/cisco-csr1kv.qcow2</b>
 4\. Create the `boxes` directory.
 
 <pre>
-$ <b>mkdir $HOME/boxes</b>
+$ <b>mkdir -p $HOME/boxes</b>
 </pre>
 
 5\. Start the `vagrant-libvirt` network (if not already started).
@@ -77,7 +79,7 @@ $ <b>ansible-playbook main.yml</b>
 8\. Copy (and rename) the Vagrant box artifact to the `boxes` directory.
 
 <pre>
-$ <b>cp cisco-csr1kv.box $HOME/boxes/cisco-csr1000v-17.03.01a.box</b>
+$ <b>cp cisco-csr1kv.box $HOME/boxes/cisco-csr1000v-17.03.02.box</b>
 </pre>
 
 9\. Copy the box metadata file to the `boxes` directory.
@@ -111,11 +113,11 @@ $ <b>awk '/VER/{gsub(/^ */,"");print}' cisco-csr1000v.json</b>
 "version": "<b>VER</b>",
 "url": "file:///home/marc/boxes/cisco-csr1000v-<b>VER</b>.box"
 
-$ <b>sed -i 's/VER/17.03.01a/g' cisco-csr1000v.json</b>
+$ <b>sed -i 's/VER/17.03.02/g' cisco-csr1000v.json</b>
 
 $ <b>awk '/\&lt;version\&gt;|url/{gsub(/^ */,"");print}' cisco-csr1000v.json</b>
-"version": "<b>17.03.01a</b>",
-"url": "file:///home/marc/boxes/cisco-csr1000v-<b>17.03.01a</b>.box"
+"version": "<b>17.03.02</b>",
+"url": "file:///home/marc/boxes/cisco-csr1000v-<b>17.03.02</b>.box"
 </pre>
 
 13\. Add the Vagrant box to the local inventory.
